@@ -1,8 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from datetime import datetime
-from app.models.user import User
-from app.models.order_item import OrderItem
 
 
 class Order(SQLModel, table=True):

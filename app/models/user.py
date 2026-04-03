@@ -1,7 +1,6 @@
 from sqlmodel import Field, SQLModel, Relationship
 from typing import Optional, List
 from pydantic import EmailStr
-from app.models.order import Order
 
 
 class UserBase(SQLModel,):

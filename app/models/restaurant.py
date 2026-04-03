@@ -1,6 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
-from app.models.menu import MenuItem
 
 
 class Restaurant(SQLModel, table=True):

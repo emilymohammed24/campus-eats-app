@@ -1,7 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
-from app.models.order import Order
-from app.models.menu import MenuItem
 
 
 class OrderItem(SQLModel, table=True):

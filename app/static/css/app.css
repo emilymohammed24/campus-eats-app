@@ -1,0 +1,143 @@
+:root {
+    --green-dark: #1b4332;
+    --green-mid: #2d6a4f;
+    --green-light: #40916c;
+    --green-bright: #52b788;
+    --green-soft: #74c69d;
+    --green-pale: #95d5b2;
+    --green-mint: #b7e4c7;
+    --green-frost: #d8f3dc;
+}
+
+body {
+    background: linear-gradient(135deg, var(--green-frost) 0%, var(--green-mint) 100%);
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+}
+
+#content {
+    width: 100%;
+    padding: 1rem;
+    transition: all 0.3s;
+    background: transparent;
+}
+
+#content > .navbar:first-child {
+    position: relative;
+}
+
+#content > .navbar:first-child::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, 
+        var(--green-bright) 0px, 
+        var(--green-bright) 25px,
+        var(--green-light) 25px,
+        var(--green-light) 50px,
+        var(--green-mid) 50px,
+        var(--green-mid) 75px);
+    border-radius: 2px;
+}
+
+.alert {
+    border-radius: 16px;
+    border: none;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.table {
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+}
+
+.table thead th {
+    background: var(--green-light);
+    color: white;
+    font-weight: 600;
+    padding: 14px;
+    border: none;
+}
+
+.table tbody tr:hover {
+    background: var(--green-frost);
+}
+
+.table tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--green-pale);
+}
+
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 2px solid var(--green-pale);
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--green-bright);
+    box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+    outline: none;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--green-frost);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green-bright);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--green-mid);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card, .alert {
+    animation: fadeInUp 0.4s ease backwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }

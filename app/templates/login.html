@@ -1,101 +1,240 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
-
-{% block external_js %}
-
-{% endblock %}
-
+{% block title %}Campus Eats - Login{% endblock %}
 
 {% block internal_css %}
 <style>
     body {
-        background-color: #f8f9fa;
-    }
-
-    .login-container {
+        background: linear-gradient(135deg, #d8f3dc 0%, #b7e4c7 50%, #95d5b2 100%);
         min-height: 100vh;
     }
-
-    .login-card {
-        border: none;
-        border-radius: 1rem;
-        overflow: hidden;
-    }
-
-    .login-image {
-        background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    
+    .login-wrapper {
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px;
+    }
+    
+    .campus-logo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .campus-logo h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #1b4332, #52b788);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        margin-left: auto;
+    }
+    
+    .campus-logo p {
+        color: #2d6a4f;
+        font-weight: 500;
+    }
+    
+    .login-card-custom {
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease;
+    }
+    
+    .login-card-custom:hover {
+        transform: translateY(-5px);
+    }
+    
+    .login-left {
+        background: linear-gradient(135deg, #1b4332, #2d6a4f, #52b788);
+        padding: 48px;
         color: white;
-        padding: 3rem;
+        position: relative;
+        overflow: hidden;
     }
-
-    .form-section {
-        padding: 3rem;
+    
+    .login-left::before {
+        position: absolute;
+        bottom: -20px;
+        left: -20px;
+        font-size: 120px;
+        opacity: 0.15;
+        white-space: nowrap;
     }
-
-    .btn-primary {
-        border-radius: 0.5rem;
+    
+    .login-left::after {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        font-size: 100px;
+        opacity: 0.12;
     }
-
-    .form-control {
-        border-radius: 0.5rem;
+    
+    .login-left h2 {
+        font-weight: 700;
+        margin-bottom: 16px;
+        position: relative;
+    }
+    
+    .login-left .lead {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+    
+    .login-right {
+        background: white;
+        padding: 48px;
+    }
+    
+    .input-group-custom {
+        margin-bottom: 24px;
+    }
+    
+    .input-group-custom label {
+        font-weight: 600;
+        color: #1b4332;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .input-group-custom input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #b7e4c7;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .input-group-custom input:focus {
+        border-color: #52b788;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+    }
+    
+    .btn-login {
+        background: linear-gradient(135deg, #2d6a4f, #52b788);
+        color: white;
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-top: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
+    }
+    
+    .btn-register {
+        background: white;
+        color: #2d6a4f;
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #52b788;
+        border-radius: 16px;
+        font-weight: 600;
+        margin-top: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-register:hover {
+        background: #52b788;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .divider {
+        text-align: center;
+        margin: 24px 0;
+        position: relative;
+    }
+    
+    .divider::before,
+    .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: #e9ecef;
+    }
+    
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+    
+    .divider span {
+        background: white;
+        padding: 0 16px;
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+    
+    @media (max-width: 768px) {
+        .login-left { display: none; }
+        .login-right { padding: 32px; }
     }
 </style>
 {% endblock %}
 
 
 {% block content %}
-
-<div class="container login-container d-flex align-items-center justify-content-center">
-    <div class="card shadow-lg login-card col-lg-10">
-        <div class="row g-0">
-            <div class="col-lg-6 d-none d-lg-flex login-image">
-                <div class="text-center">
-                    <h2 class="mt-4 fw-bold">Welcome Back</h2>
-                    <p class="lead">Sign in to continue to the app</p>
+<div class="login-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="campus-logo">
+                    <h1>Campus Eats</h1>
                 </div>
-            </div>
-            <div class="col-lg-6 bg-white">
-                <div class="form-section">
-                    <h3 class="fw-bold mb-4">Login</h3>
-
-                    <form id="loginForm" method="POST">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control form-control-md" id="username" name="username"
-                                required="required">
+                
+                <div class="login-card-custom">
+                    <div class="row g-0">
+                        <div class="col-lg-6 login-left d-flex flex-column justify-content-center">
+                            <h2>Welcome Back!</h2>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control form-control-md" id="password" name="password"
-                                required>
+                        
+                        <div class="col-lg-6 login-right">
+                            <form method="POST">
+                                <div class="input-group-custom">
+                                    <label> Username</label>
+                                    <input type="text" name="username" placeholder="Enter your username" required>
+                                </div>
+                                
+                                <div class="input-group-custom">
+                                    <label> Password</label>
+                                    <input type="password" name="password" placeholder="Enter your password" required>
+                                </div>
+                                
+                                <button type="submit" class="btn-login">
+                                     Sign In
+                                </button>
+                                
+                                <div class="divider">
+                                    <span>or</span>
+                                </div>
+                                
+                                <a href="{{ url_for('register_view') }}" class="btn-register text-center d-block">
+                                     Create New Account
+                                </a>
+                            </form>
+                            
+                            {% for message in get_flashed_messages(request) %}
+                            <div class="alert alert-{{ message.type }} mt-4" role="alert">
+                                {{ message.message }}
+                            </div>
+                            {% endfor %}
                         </div>
-
-                        <div class="d-grid mb-3">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                Sign In
-                            </button>
-
-                    </form>
+                    </div>
                 </div>
-
-                <div class="d-grid mb-3">
-                    <a class="btn btn-secondary btn-lg" href="{{url_for('register_view')}}" role="button">
-                        Sign Up
-                    </a>
-                </div>
-
-
-                {% for message in get_flashed_messages(request) %}
-                <div class="alert alert-{{ message.type }}" role="alert">{{ message.message }}</div>
-                {% endfor %}
             </div>
         </div>
-
     </div>
-</div>
 </div>
 {% endblock %}

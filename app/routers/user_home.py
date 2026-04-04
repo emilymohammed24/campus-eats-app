@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import status
 from sqlmodel import select
 from app.models.restaurant import Restaurant
+from app.models.menu import MenuItem
 from app.dependencies.session import SessionDep
 from app.dependencies.auth import AuthDep, IsUserLoggedIn, get_current_user, is_admin
 from . import router, templates
@@ -22,5 +23,28 @@ async def user_home_view(
         context={
             "user": user,
             "restaurants": restaurants
+        }
+    )
+
+@router.get("/restaurant/{restaurant_id}", response_class=HTMLResponse)
+async def restaurant_menu(
+    request: Request,
+    restaurant_id: int,
+    user: AuthDep,
+    db: SessionDep
+):
+    restaurant = db.get(Restaurant, restaurant_id)
+
+    menu_items = db.exec(
+        select(MenuItem).where(MenuItem.restaurant_id == restaurant_id)
+    ).all()
+
+    return templates.TemplateResponse(
+        request=request,
+        name="restaurant_menu.html",
+        context={
+            "user": user,
+            "restaurant": restaurant,
+            "menu_items": menu_items
         }
     )

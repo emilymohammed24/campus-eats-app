@@ -5,6 +5,7 @@ from sqlmodel import select
 from app.database import create_db_and_tables, get_cli_session, drop_all
 from app.models.user import User
 from app.models.restaurant import Restaurant
+from app.models.menu import MenuItem
 from app.utilities.security import encrypt_password
 from app.repositories.user import UserRepository
 from app.schemas.user import AdminCreate, RegularUserCreate
@@ -57,13 +58,35 @@ def initialize():
         )
         
         db.add_all([
-            bob, 
-            alice,
             restaurant1,
             restaurant2,
             restaurant3
         ])
 
+        db.commit()
+
+        menu_items = [
+            MenuItem(
+                name="Chicken Sandwich",
+                price=25.0,
+                description="Grilled chicken with lettuce and sauce",
+                restaurant_id=restaurant2.id
+            ),
+            MenuItem(
+                name="Beef Patty",
+                price=15.0,
+                description="Juicy beef patty",
+                restaurant_id=restaurant1.id
+            ),
+            MenuItem(
+                name="Coffee",
+                price=38.0,
+                description="Classic Trinidad street food",
+                restaurant_id=restaurant3.id
+            ),
+        ]
+
+        db.add_all(menu_items)
         db.commit()
         
         print("Database Initialized !!")

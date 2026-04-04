@@ -80,36 +80,45 @@
 
 {% block subpage_content %}
 
-    <div class="container" id="content">
-        <div class="row">
-            <p>
-                This is table is rendered...
-            </p>
-        </div>
-        <div class="row">
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Restaurant</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for r in restaurants %}
-                    <tr onclick="window.location.href='/restaurant/{{ r.id }}'" style="cursor: pointer;">
-                        <td>
-                            <a href="/restaurant/{{ r.id }}" class="text-decoration-none">
-                                {{ r.name }}
-                            </a>
-                        </td>
-                        <td>{{ r.description }}</td>
-                        <td>{{ r.location }}</td>
-                    </tr>
-                    {% endfor %}
-                <tbody>
-            </table>
-        </div>
+<div class="container" id="content">
+
+    <div class="row mb-3">
+        <h2>{{ restaurant.name }}</h2>
+        <p>{{ restaurant.description }}</p>
+        <p><strong>Location:</strong> {{ restaurant.location }}</p>
     </div>
+
+    <div class="row">
+        <h4>Menu</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in menu_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>${{ "%.2f"|format(item.price) }}</td>
+                    <td>
+                        {% if item.is_available %}
+                            Available
+                        {% else %}
+                            Unavailable
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 {% endblock %}

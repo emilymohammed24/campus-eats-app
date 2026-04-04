@@ -9,15 +9,33 @@ class AuthService:
 
     def authenticate_user(self, username: str, password: str) -> Optional[str]:
         user = self.user_repo.get_by_username(username)
-        if not user or not verify_password(plaintext_password=password, encrypted_password=user.password):
+
+        if not user:
             return None
-        access_token = create_access_token(data={"sub": f"{user.id}", "role": user.role})
+
+        if not verify_password(
+            plaintext_password=password,
+            encrypted_password=user.password
+        ):
+            return None
+
+        access_token = create_access_token(
+            data={"sub": str(user.id), "role": user.role}
+        )
+
         return access_token
 
     def register_user(self, username: str, email: str, password: str):
+        existing_user = self.user_repo.get_by_username(username)
+        if existing_user:
+            raise Exception("Username already exists")
+        
+        hashed_password = encrypt_password(password)
+
         new_user = RegularUserCreate(
-            username=username, 
-            email=email, 
-            password=encrypt_password(password)
+            username=username,
+            email=email,
+            password=hashed_password
         )
+
         return self.user_repo.create(new_user)

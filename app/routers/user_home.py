@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import status
+from sqlmodel import select
+from app.models.restaurant import Restaurant
 from app.dependencies.session import SessionDep
 from app.dependencies.auth import AuthDep, IsUserLoggedIn, get_current_user, is_admin
 from . import router, templates
@@ -12,10 +14,13 @@ async def user_home_view(
     user: AuthDep,
     db:SessionDep
 ):
+    restaurants = db.exec(select(Restaurant)).all()
+
     return templates.TemplateResponse(
         request=request, 
         name="app.html",
         context={
-            "user": user
+            "user": user,
+            "restaurants": restaurants
         }
     )

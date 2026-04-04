@@ -8,7 +8,7 @@ class Order(SQLModel, table=True):
 
     user_id: int = Field(foreign_key="user.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
-    status: str = "pending"
+    status: str = Field(default="pending")
 
     user: Optional["User"] = Relationship(back_populates="orders")
     items: List["OrderItem"] = Relationship(back_populates="order")

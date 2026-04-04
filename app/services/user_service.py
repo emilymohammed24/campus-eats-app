@@ -10,3 +10,8 @@ class UserService:
     def get_all_users(self):
         return self.user_repo.get_all_users()
     
+    def delete_user(self, current_user, user_id: int):
+        if current_user.role != "admin":
+            raise Exception("Unauthorized")
+
+        return self.user_repo.delete(user_id)

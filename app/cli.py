@@ -4,6 +4,7 @@ from tabulate import tabulate
 from sqlmodel import select
 from app.database import create_db_and_tables, get_cli_session, drop_all
 from app.models.user import User
+from app.models.restaurant import Restaurant
 from app.utilities.security import encrypt_password
 from app.repositories.user import UserRepository
 from app.schemas.user import AdminCreate, RegularUserCreate
@@ -33,8 +34,36 @@ def initialize():
             password=alice_password,
             role='regular_user'
         )
-        
+
         db.add_all([bob, alice])
+        db.commit()
+
+        restaurant1 = Restaurant(
+            name="Lindas",
+            description="Affordable student meals",
+            location="UWI St. Augustine"
+        )
+
+        restaurant2 = Restaurant(
+            name="KFC",
+            description="Affordable student meals",
+            location="UWI St. Augustine"
+        )
+
+        restaurant3 = Restaurant(
+            name="Rituals",
+            description="Affordable student meals",
+            location="UWI St. Augustine"
+        )
+        
+        db.add_all([
+            bob, 
+            alice,
+            restaurant1,
+            restaurant2,
+            restaurant3
+        ])
+
         db.commit()
         
         print("Database Initialized !!")
